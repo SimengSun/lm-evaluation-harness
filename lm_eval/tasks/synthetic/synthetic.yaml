@@ -4,9 +4,9 @@ dataset_name: json
 dataset_path: json
 dataset_kwargs:
   data_files: 
-    train: ./unique_token_copy/train.jsonl
-    validation: ./unique_token_copy/test_20.jsonl
-    test: ./unique_token_copy/test_22.jsonl
+    train: ${DATA_PREFIX}/unique_token_copy/train.jsonl
+    validation: ${DATA_PREFIX}/unique_token_copy/test_20.jsonl
+    test: ${DATA_PREFIX}/unique_token_copy/test_22.jsonl
 output_type: generate_until
 training_split: train
 test_split: validation

@@ -3,6 +3,7 @@ import ast
 import logging
 import random
 import re
+import os
 from collections.abc import Callable
 from copy import deepcopy
 from dataclasses import asdict, dataclass
@@ -39,7 +40,7 @@ from lm_eval.api.registry import (
 from lm_eval.caching.cache import load_from_cache, save_to_cache
 from lm_eval.filters import build_filter_ensemble
 from lm_eval.prompts import get_prompt
-
+import pdb
 
 ALL_OUTPUT_TYPES = [
     "loglikelihood",
@@ -868,6 +869,9 @@ class ConfigurableTask(Task):
                     )
 
     def download(self, dataset_kwargs: Optional[Dict[str, Any]] = None) -> None:
+        if "data_files" in dataset_kwargs:
+            for dname in dataset_kwargs["data_files"]:
+                dataset_kwargs["data_files"][dname] = dataset_kwargs["data_files"][dname].replace("${DATA_PREFIX}", os.environ["DATA_PREFIX"])
         self.dataset = datasets.load_dataset(
             path=self.DATASET_PATH,
             name=self.DATASET_NAME,
