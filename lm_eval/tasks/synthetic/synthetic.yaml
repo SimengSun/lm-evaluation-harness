@@ -1,0 +1,28 @@
+group: synthetic
+task: unique_token_copy
+dataset_name: json
+dataset_path: json
+dataset_kwargs:
+  data_files: 
+    train: ./unique_token_copy/train.jsonl
+    validation: ./unique_token_copy/test_20.jsonl
+    test: ./unique_token_copy/test_22.jsonl
+output_type: generate_until
+training_split: train
+test_split: validation
+doc_to_text: "{{input}}"
+doc_to_target: "{{target}}" 
+process_docs: !function utils.process_docs_unique_token_copy
+process_results: !function utils.process_results_gen
+metric_list:
+  - metric: match_acc
+    aggregation: mean
+    higher_is_better: true
+num_fewshot: 0
+generation_kwargs:
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 50
+  add_BOS: true
+metadata:
+  version: 1.0
