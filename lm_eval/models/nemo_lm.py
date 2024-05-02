@@ -505,6 +505,7 @@ class NeMoLM(LM):
             # unpack our keyword arguments.
             until = get_until(req_args)
             max_gen_toks = req_args.get("max_gen_toks", self.max_gen_toks)
+            add_BOS = req_args.get("add_BOS", False)
 
             remaining_length = self.max_length - max_gen_toks
             contexts = []
@@ -519,6 +520,7 @@ class NeMoLM(LM):
                 tokens_to_generate=max_gen_toks,
                 end_strings=until,
                 greedy=True,
+                add_BOS=add_BOS
             )
 
             answers = output["sentences"]
