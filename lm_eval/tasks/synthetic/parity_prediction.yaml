@@ -1,0 +1,28 @@
+group: synthetic
+task: parity_prediction
+dataset_name: json
+dataset_path: json
+dataset_kwargs:
+  data_files: 
+    train: ${DATA_PREFIX}/parity_prediction/train.jsonl
+    validation: ${DATA_PREFIX}/parity_prediction/test_20.jsonl
+    test: ${DATA_PREFIX}/parity_prediction/test_22.jsonl
+output_type: generate_until
+training_split: train
+test_split: validation
+doc_to_text: "{{input}}"
+doc_to_target: "{{target}}" 
+process_docs: !function utils.process_docs
+process_results: !function utils.process_results_gen
+metric_list:
+  - metric: match_acc
+    aggregation: mean
+    higher_is_better: true
+num_fewshot: 0
+generation_kwargs:
+  do_sample: false
+  temperature: 0.0
+  max_gen_toks: 50
+  add_BOS: true
+metadata:
+  version: 1.0

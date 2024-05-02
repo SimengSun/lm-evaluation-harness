@@ -1,6 +1,6 @@
 import datasets
 import pdb
-def process_docs_unique_token_copy(dataset: datasets.Dataset):
+def process_docs(dataset: datasets.Dataset):
     def _helper(doc):
       # modifies the contents of a single
       # document in our dataset.
